@@ -1,26 +1,15 @@
 import { getTeamViewerObserveList } from "@/db/teamviewer-observe-list";
+import { getTeamViewerManagedDeviceList } from "@/lib/teamviewer-api";
+import { TeamViewerObserveListClient } from "./TeamViewerObserveListClient";
 
 export default async function TeamViewerObserveList() {
-  const data = await getTeamViewerObserveList();
+  const observeList = await getTeamViewerObserveList();
+  const { resources: managedDeviceList } =
+    await getTeamViewerManagedDeviceList();
 
-  return (
-    <>
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Observe</th>
-        </tr>
-        {data.map((o: any) => {
-          return (
-            <tr>
-              <td>...</td>
-              <td>...</td>
-              <td>{o}</td>
-            </tr>
-          );
-        })}
-      </table>
-    </>
-  );
+  const masterList = managedDeviceList.map((md: any) => {
+    return { ...md, observe: observeList.includes(md["id"]) };
+  });
+
+  return <TeamViewerObserveListClient initialData={masterList} />;
 }
