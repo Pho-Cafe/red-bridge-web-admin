@@ -3,7 +3,7 @@ export async function getTeamViewerManagedDeviceList() {
     "https://webapi.teamviewer.com/api/v1/managed/devices",
     {
       headers: {
-        Authorization: `Bearer ${process.env.API_SECRET_KEY}`,
+        Authorization: `Bearer ${process.env.TEAMVIEWER_API_SECRET_KEY}`,
         "Content-Type": "application/json",
       },
       cache: "no-store",
