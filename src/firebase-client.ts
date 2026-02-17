@@ -12,4 +12,4 @@ const firebaseConfig = {
 };
 
 export const fb = initializeApp(firebaseConfig);
-export const db = getFirestore(fb, "apple");
+export const db = getFirestore(fb, "(default)");
