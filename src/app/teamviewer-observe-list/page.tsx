@@ -2,6 +2,8 @@ import { getTeamViewerObserveList } from "@/db/teamviewer-observe-list";
 import { getTeamViewerManagedDeviceList } from "@/lib/teamviewer-api";
 import { TeamViewerObserveListClient } from "./TeamViewerObserveListClient";
 
+export const dynamic = "force-dynamic"; // skip build-time generation
+
 export default async function TeamViewerObserveList() {
   const observeList = await getTeamViewerObserveList();
   const { resources: managedDeviceList } =
