@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { updateTeamViewerObserveList } from "@/actions/update-teamviewer-observe-list";
+import { PageLayout } from "@/components/PageLayout";
+import { Table } from "@/components/Table";
+import { Button } from "@/components/Button";
 
 interface Device {
   id: string;
@@ -30,41 +33,29 @@ export function TeamViewerObserveListClient({
   }
 
   return (
-    <>
-      <p>Loaded {devices.length} TeamViewer resources.</p>
-      <p>Observing {observeCount} resources.</p>
-      <table>
-        <thead>
-          <tr>
-            {/* <th>ID</th> */}
-            <th>Name</th>
-            <th>Observe</th>
+    <PageLayout title="TeamViewer Observe List">
+      <p className="text-sm text-gray-600 mb-4">
+        {devices.length} resources &mdash; {observeCount} observed
+      </p>
+      <Table headers={["Name", "Observe"]}>
+        {devices.map(({ id, name, observe }) => (
+          <tr key={id} className="border-b border-gray-200">
+            <td className="px-2 py-1">{name}</td>
+            <td className="px-2 py-1">
+              <input
+                type="checkbox"
+                id={id}
+                checked={observe}
+                onChange={() => onObserveToggle(id)}
+                className="cursor-pointer"
+              />
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {devices.map(({ id, name, observe }) => {
-            return (
-              <tr key={id}>
-                {/* <td>{o.id}</td> */}
-                <td>{name}</td>
-                <td>
-                  <fieldset>
-                    <input
-                      type="checkbox"
-                      id={id}
-                      checked={observe}
-                      onChange={() => onObserveToggle(id)}
-                    />
-                  </fieldset>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <button className="outline" onClick={onSave}>
-        Save
-      </button>
-    </>
+        ))}
+      </Table>
+      <div className="mt-4">
+        <Button onClick={onSave}>Save</Button>
+      </div>
+    </PageLayout>
   );
 }
