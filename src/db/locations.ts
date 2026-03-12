@@ -6,11 +6,12 @@ import {
   getDocs,
   getDoc,
   setDoc,
-  deleteDoc,
+  addDoc,
 } from "firebase/firestore";
 import { db } from "@/firebase-client";
 
 export interface Location {
+  id: string;
   reference: string;
   longitude: number | null;
   latitude: number | null;
@@ -19,42 +20,38 @@ export interface Location {
 export async function getLocations(): Promise<Location[]> {
   const snapshot = await getDocs(collection(db, "locations"));
   return snapshot.docs.map((d) => ({
-    reference: d.id,
+    id: d.id,
+    reference: d.data().reference ?? "",
     longitude: d.data().longitude ?? null,
     latitude: d.data().latitude ?? null,
   }));
 }
 
-export async function getLocation(
-  reference: string
-): Promise<Location | null> {
-  const snapshot = await getDoc(doc(db, "locations", reference));
+export async function getLocation(id: string): Promise<Location | null> {
+  console.log({id})
+  const snapshot = await getDoc(doc(db, "locations", id));
   if (!snapshot.exists()) return null;
   const data = snapshot.data();
   return {
-    reference: snapshot.id,
+    id: snapshot.id,
+    reference: data.reference ?? "",
     longitude: data.longitude ?? null,
     latitude: data.latitude ?? null,
   };
 }
 
 export async function createLocation(reference: string): Promise<void> {
-  await setDoc(doc(db, "locations", reference), {});
+  await addDoc(collection(db, "locations"), { reference });
 }
 
 export async function updateLocation(
-  oldReference: string,
+  id: string,
   data: { reference: string; longitude: number | null; latitude: number | null }
 ): Promise<void> {
   const { reference, longitude, latitude } = data;
-  const fields: Record<string, number> = {};
+  const fields: Record<string, unknown> = { reference };
   if (longitude !== null) fields.longitude = longitude;
   if (latitude !== null) fields.latitude = latitude;
 
-  if (reference !== oldReference) {
-    await setDoc(doc(db, "locations", reference), fields);
-    await deleteDoc(doc(db, "locations", oldReference));
-  } else {
-    await setDoc(doc(db, "locations", reference), fields);
-  }
+  await setDoc(doc(db, "locations", id), fields);
 }

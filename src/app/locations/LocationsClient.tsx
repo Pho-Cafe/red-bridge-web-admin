@@ -51,7 +51,7 @@ export function LocationsClient({
           <tr
             key={loc.reference}
             className="border-b border-gray-200 hover:bg-gray-50 cursor-pointer"
-            onClick={() => router.push(`/locations/${loc.reference}`)}
+            onClick={() => router.push(`/locations/${loc.id}`)}
           >
             <td className="px-2 py-1">{loc.reference}</td>
             <td className="px-2 py-1">{loc.longitude ?? "—"}</td>

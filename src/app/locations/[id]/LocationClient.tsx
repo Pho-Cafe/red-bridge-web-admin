@@ -34,7 +34,7 @@ export function LocationClient({
   async function handleSave() {
     if (!reference.trim()) return;
     setSaving(true);
-    await updateLocationAction(location.reference, {
+    await updateLocationAction(location.id, {
       reference: reference.trim(),
       longitude: parseCoordinate(longitude),
       latitude: parseCoordinate(latitude),

@@ -1,5 +1,5 @@
 import { getLocation } from "@/db/locations";
-import { getTeamViewerAssignments } from "@/db/teamviewer-observe-list";
+import { getTeamViewerAssignments } from "@/db/teamviewer-resources";
 import { LocationClient } from "./LocationClient";
 
 export const dynamic = "force-dynamic";
@@ -7,26 +7,23 @@ export const dynamic = "force-dynamic";
 export default async function LocationPage({
   params,
 }: {
-  params: Promise<{ reference: string }>;
+  params: Promise<{ id: string }>;
 }) {
-  const { reference } = await params;
-  const decodedRef = decodeURIComponent(reference);
+  const { id } = await params;
   const [location, assignments] = await Promise.all([
-    getLocation(decodedRef),
+    getLocation(id),
     getTeamViewerAssignments(),
   ]);
 
   if (!location) {
     return (
       <main className="max-w-4xl mx-auto p-6">
-        <p className="text-sm text-gray-600">
-          Location &quot;{decodedRef}&quot; not found.
-        </p>
+        <p className="text-sm text-gray-600">Location not found.</p>
       </main>
     );
   }
 
-  const assignedDeviceIds = assignments[decodedRef] ?? [];
+  const assignedDeviceIds = assignments[id] ?? [];
 
   return (
     <LocationClient location={location} assignedDeviceIds={assignedDeviceIds} />

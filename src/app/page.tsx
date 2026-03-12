@@ -8,16 +8,15 @@ const routes = [
     description: "Manage physical locations",
   },
   {
-    href: "/teamviewer-observe-list",
-    label: "TeamViewer Observe List",
-    description: "Configure observed TeamViewer devices",
+    href: "/teamviewer-resources",
+    label: "TeamViewer Resources",
+    description: "Assign TeamViewer devices to locations",
   },
 ];
 
 export default function Home() {
-  const appName = process.env.NEXT_PUBLIC_APP_NAME ?? "Admin";
   return (
-    <PageLayout title={appName}>
+    <PageLayout>
       <ul className="border border-gray-200 divide-y divide-gray-200 max-w-sm">
         {routes.map(({ href, label, description }) => (
           <li key={href}>

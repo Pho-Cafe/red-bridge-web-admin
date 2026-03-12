@@ -36,7 +36,7 @@ Each route follows the same pattern:
 
 Initialised in `src/firebase-client.ts` from `NEXT_PUBLIC_FIREBASE_*` env vars. The Firestore instance uses the default database. All DB functions import `{ db }` from there.
 
-Reference fields are used as Firestore document IDs (e.g. location reference = doc ID). Renaming a reference means creating a new document and deleting the old one.
+Location documents use auto-generated Firestore document IDs. The `reference` field is stored as a regular document field, not as the document ID. This means references can be freely renamed without recreating documents or breaking relationships (e.g. TeamViewer assignments are keyed by document ID).
 
 ### Dynamic routes
 
