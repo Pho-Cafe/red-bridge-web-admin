@@ -16,7 +16,7 @@ export function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className="border border-gray-400 bg-gray-100 px-3 py-1 cursor-pointer text-sm disabled:opacity-50 disabled:cursor-default"
+      className="border border-gray-900 px-4 py-1.5 text-sm cursor-pointer hover:bg-gray-900 hover:text-white disabled:opacity-40 disabled:cursor-default disabled:hover:bg-transparent disabled:hover:text-inherit"
     >
       {children}
     </button>

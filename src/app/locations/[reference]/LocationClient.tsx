@@ -4,6 +4,7 @@ import { useState } from "react";
 import { PageLayout } from "@/components/PageLayout";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
+import { Table } from "@/components/Table";
 import { updateLocationAction } from "@/actions/update-location";
 import type { Location } from "@/db/locations";
 
@@ -14,7 +15,13 @@ function parseCoordinate(value: string): number | null {
   return isNaN(n) ? null : n;
 }
 
-export function LocationClient({ location }: { location: Location }) {
+export function LocationClient({
+  location,
+  assignedDeviceIds,
+}: {
+  location: Location;
+  assignedDeviceIds: string[];
+}) {
   const [reference, setReference] = useState(location.reference);
   const [longitude, setLongitude] = useState(
     location.longitude !== null ? String(location.longitude) : ""
@@ -66,6 +73,25 @@ export function LocationClient({ location }: { location: Location }) {
             Save
           </Button>
         </div>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="text-sm font-medium uppercase tracking-wider mb-4">
+          TeamViewer Resources
+        </h2>
+        {assignedDeviceIds.length === 0 ? (
+          <p className="text-sm text-gray-600">
+            No TeamViewer resources assigned to this location.
+          </p>
+        ) : (
+          <Table headers={["Device ID"]}>
+            {assignedDeviceIds.map((id) => (
+              <tr key={id} className="border-b border-gray-200">
+                <td className="px-2 py-1">{id}</td>
+              </tr>
+            ))}
+          </Table>
+        )}
       </div>
     </PageLayout>
   );

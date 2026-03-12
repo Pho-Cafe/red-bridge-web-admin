@@ -2,13 +2,14 @@
 
 import { db } from "@/firebase-client";
 import { doc, updateDoc } from "firebase/firestore";
+import type { TeamViewerAssignments } from "@/db/teamviewer-observe-list";
 
-export async function updateTeamViewerObserveList(observeList: string[]) {
+export async function updateTeamViewerAssignments(
+  assignments: TeamViewerAssignments
+) {
   const docRef = doc(db, "config", "teamviewer");
 
   await updateDoc(docRef, {
-    observeList,
+    assignments,
   });
-
-  return;
 }

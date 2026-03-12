@@ -14,7 +14,7 @@ export function Table({
           {headers.map((h) => (
             <th
               key={h}
-              className="text-left border-b-2 border-gray-300 px-2 py-1 font-medium"
+              className="text-left border-b border-gray-900 px-2 pb-2 text-xs font-medium uppercase tracking-wider"
             >
               {h}
             </th>

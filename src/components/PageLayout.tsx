@@ -8,8 +8,9 @@ export function PageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="max-w-4xl mx-auto p-6">
-      <h1 className="text-xl font-semibold mb-4">{title}</h1>
+    <main className="max-w-4xl mx-auto px-6 py-8">
+      <h1 className="text-2xl font-bold tracking-tight mb-1">{title}</h1>
+      <hr className="border-gray-200 mb-6" />
       {children}
     </main>
   );

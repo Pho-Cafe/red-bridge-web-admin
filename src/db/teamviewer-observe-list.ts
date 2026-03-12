@@ -3,16 +3,16 @@
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase-client";
 
-export async function getTeamViewerObserveList() {
+export type TeamViewerAssignments = Record<string, string[]>;
+
+export async function getTeamViewerAssignments(): Promise<TeamViewerAssignments> {
   const docRef = doc(db, "config", "teamviewer");
   const snapshot = await getDoc(docRef);
 
   if (snapshot.exists()) {
     const data = snapshot.data();
-    console.log({ observeList: data.observeList });
-    return data.observeList;
+    return data.assignments ?? {};
   } else {
-    console.error("Document not found");
-    return [];
+    return {};
   }
 }
