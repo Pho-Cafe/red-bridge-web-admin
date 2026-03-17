@@ -17,7 +17,7 @@ const routes = [
 export default function Home() {
   return (
     <PageLayout>
-      <ul className="border border-gray-200 divide-y divide-gray-200 max-w-sm">
+      <ul className="border border-gray-300 divide-y divide-gray-100 max-w-sm">
         {routes.map(({ href, label, description }) => (
           <li key={href}>
             <Link href={href} className="flex flex-col gap-0.5 px-4 py-3 hover:bg-gray-50">

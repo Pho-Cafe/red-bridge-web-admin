@@ -10,10 +10,7 @@ export function PageLayout({
   return (
     <main className="max-w-4xl mx-auto px-6 py-8">
       {title && (
-        <>
-          <h1 className="text-2xl font-bold tracking-tight mb-1">{title}</h1>
-          <hr className="border-gray-200 mb-6" />
-        </>
+        <h1 className="text-2xl font-bold tracking-tight mb-6">{title}</h1>
       )}
       {children}
     </main>

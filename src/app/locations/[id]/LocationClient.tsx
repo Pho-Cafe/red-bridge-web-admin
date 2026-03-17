@@ -76,7 +76,7 @@ export function LocationClient({
       </div>
 
       <div className="mt-8">
-        <h2 className="text-sm font-medium uppercase tracking-wider mb-4">
+        <h2 className="text-sm font-medium mb-4">
           TeamViewer Resources
         </h2>
         {assignedDeviceIds.length === 0 ? (
@@ -86,8 +86,8 @@ export function LocationClient({
         ) : (
           <Table headers={["Device ID"]}>
             {assignedDeviceIds.map((id) => (
-              <tr key={id} className="border-b border-gray-200">
-                <td className="px-2 py-1">{id}</td>
+              <tr key={id} className="border-b border-gray-100">
+                <td className="px-3 py-2">{id}</td>
               </tr>
             ))}
           </Table>
