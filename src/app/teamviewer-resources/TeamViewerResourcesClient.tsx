@@ -24,13 +24,13 @@ export function TeamViewerResourcesClient({
   initialData: Device[];
   locations: LocationOption[];
 }) {
-  const [devices, setDevices] = useState(initialData);
+  const [devices, setDevices] = useState(
+    initialData.sort((a, b) => a.name.localeCompare(b.name)),
+  );
   const assignedCount = devices.filter((d) => d.locationId).length;
 
   function onLocationChange(id: string, locationId: string) {
-    setDevices(
-      devices.map((d) => (d.id === id ? { ...d, locationId } : d))
-    );
+    setDevices(devices.map((d) => (d.id === id ? { ...d, locationId } : d)));
   }
 
   function onSave() {
@@ -46,7 +46,7 @@ export function TeamViewerResourcesClient({
     }
 
     updateTeamViewerAssignments(assignments).then(() =>
-      window.alert("save finished")
+      window.alert("Save Successful"),
     );
   }
 
@@ -57,13 +57,13 @@ export function TeamViewerResourcesClient({
       </p>
       <Table headers={["Name", "Location"]}>
         {devices.map(({ id, name, locationId }) => (
-          <tr key={id} className="border-b border-gray-200">
-            <td className="px-2 py-1">{name}</td>
-            <td className="px-2 py-1">
+          <tr key={id} className="border-b border-gray-100">
+            <td className="px-3 py-2">{name}</td>
+            <td className="px-3 py-2">
               <select
                 value={locationId}
                 onChange={(e) => onLocationChange(id, e.target.value)}
-                className="border border-gray-300 rounded px-1 py-0.5 text-sm"
+                className="border border-gray-300 px-1 py-0.5 text-sm"
               >
                 <option value="">—</option>
                 {locations.map((loc) => (
