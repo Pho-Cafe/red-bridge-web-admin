@@ -12,6 +12,11 @@ const routes = [
     label: "TeamViewer Resources",
     description: "Assign TeamViewer devices to locations",
   },
+  {
+    href: "/prtg-resources",
+    label: "PRTG Resources",
+    description: "Assign PRTG sensors to locations",
+  },
 ];
 
 export default function Home() {
